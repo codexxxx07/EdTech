@@ -7,6 +7,29 @@
   'use strict';
 
   // ──────────────────────────────────────────────
+  // 0. THEME — Light / Dark toggle
+  // ──────────────────────────────────────────────
+  const themeToggle = document.getElementById('themeToggle');
+  const htmlEl      = document.documentElement;
+
+  // On load: read saved preference; default to light
+  (function initTheme() {
+    const saved = localStorage.getItem('npTheme');
+    if (saved === 'dark') {
+      htmlEl.classList.add('dark');
+    }
+    // No saved value → light mode (no class)
+  })();
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      const isDark = htmlEl.classList.toggle('dark');
+      localStorage.setItem('npTheme', isDark ? 'dark' : 'light');
+    });
+  }
+
+
+  // ──────────────────────────────────────────────
   // 1. NAVBAR — scroll class + progress bar
   // ──────────────────────────────────────────────
   const navbar        = document.getElementById('navbar');
