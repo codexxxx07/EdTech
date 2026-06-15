@@ -795,19 +795,33 @@
   // 16. LOGIN BUTTON FUNCTIONALITY
   // ──────────────────────────────────────────────
   (function initLoginButton() {
+    // Reusable function to show login modal
+    function showLoginModal() {
+      window.showModal({
+        type: 'info',
+        title: 'Talk to Mentor Coming Soon',
+        message: 'User authentication is under development. Please contact support for account access.',
+        icon: '🔐',
+        buttonText: 'Close',
+        autoClose: false
+      });
+    }
+
+    // Navbar login button
     const loginBtn = document.querySelector('.btn-login');
     if (loginBtn) {
       loginBtn.addEventListener('click', function (e) {
         e.preventDefault();
-        
-        window.showModal({
-          type: 'info',
-          title: 'Login Coming Soon',
-          message: 'User authentication is under development. Please contact support for account access.',
-          icon: '🔐',
-          buttonText: 'Close',
-          autoClose: false
-        });
+        showLoginModal();
+      });
+    }
+
+    // Talk to Mentor button (triggers same login modal)
+    const talkToMentorBtn = document.getElementById('talkToMentorBtn');
+    if (talkToMentorBtn) {
+      talkToMentorBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showLoginModal();
       });
     }
   })();
