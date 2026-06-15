@@ -383,4 +383,433 @@
     if (e.key === 'ArrowRight' && nextBtn) nextBtn.click();
   });
 
+
+  // ──────────────────────────────────────────────
+  // 10. SMOOTH SCROLL for anchor links
+  // ──────────────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href === '#' || href === '#!') return;
+      
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const offsetTop = target.offsetTop - 80;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+        // Close mobile menu if open
+        if (mobileMenu && mobileMenu.classList.contains('open')) {
+          window.closeMobileMenu();
+        }
+      }
+    });
+  });
+
+
+  // ──────────────────────────────────────────────
+  // 11. MODAL SYSTEM (reusable)
+  // ──────────────────────────────────────────────
+  (function initModalSystem() {
+    // Create modal container if not exists
+    let modalContainer = document.getElementById('modalContainer');
+    if (!modalContainer) {
+      modalContainer = document.createElement('div');
+      modalContainer.id = 'modalContainer';
+      modalContainer.style.cssText = [
+        'position:fixed',
+        'inset:0',
+        'z-index:9999',
+        'display:none',
+        'align-items:center',
+        'justify-content:center',
+        'padding:1rem'
+      ].join(';');
+      document.body.appendChild(modalContainer);
+    }
+
+    // Modal backdrop
+    const backdrop = document.createElement('div');
+    backdrop.style.cssText = [
+      'position:absolute',
+      'inset:0',
+      'background:rgba(0,0,0,0.6)',
+      'backdrop-filter:blur(4px)',
+      'opacity:0',
+      'transition:opacity 0.3s ease'
+    ].join(';');
+    modalContainer.appendChild(backdrop);
+
+    // Modal content wrapper
+    const contentWrapper = document.createElement('div');
+    contentWrapper.style.cssText = [
+      'position:relative',
+      'background:var(--color-bg-card)',
+      'border:1px solid var(--color-border)',
+      'border-radius:16px',
+      'padding:2rem',
+      'max-width:420px',
+      'width:100%',
+      'box-shadow:0 20px 60px rgba(0,0,0,0.3)',
+      'transform:scale(0.9) translateY(20px)',
+      'opacity:0',
+      'transition:all 0.3s ease',
+      'text-align:center'
+    ].join(';');
+    modalContainer.appendChild(contentWrapper);
+
+    // Close button
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '×';
+    closeBtn.setAttribute('aria-label', 'Close modal');
+    closeBtn.style.cssText = [
+      'position:absolute',
+      'top:1rem',
+      'right:1rem',
+      'width:32px',
+      'height:32px',
+      'border-radius:8px',
+      'border:1px solid var(--color-border)',
+      'background:var(--color-bg-secondary)',
+      'color:var(--color-text-muted)',
+      'font-size:1.5rem',
+      'line-height:1',
+      'cursor:pointer',
+      'display:flex',
+      'align-items:center',
+      'justify-content:center',
+      'transition:all 0.2s ease'
+    ].join(';');
+    closeBtn.addEventListener('mouseenter', function () {
+      this.style.borderColor = 'var(--color-accent)';
+      this.style.color = 'var(--color-accent)';
+    });
+    closeBtn.addEventListener('mouseleave', function () {
+      this.style.borderColor = 'var(--color-border)';
+      this.style.color = 'var(--color-text-muted)';
+    });
+    contentWrapper.appendChild(closeBtn);
+
+    // Icon placeholder
+    const iconEl = document.createElement('div');
+    iconEl.style.cssText = 'font-size:3rem;margin-bottom:1rem;';
+    contentWrapper.appendChild(iconEl);
+
+    // Title placeholder
+    const titleEl = document.createElement('h3');
+    titleEl.style.cssText = [
+      'font-size:1.25rem',
+      'font-weight:700',
+      'color:var(--color-text-primary)',
+      'margin-bottom:0.75rem'
+    ].join(';');
+    contentWrapper.appendChild(titleEl);
+
+    // Message placeholder
+    const messageEl = document.createElement('p');
+    messageEl.style.cssText = [
+      'font-size:0.95rem',
+      'color:var(--color-text-muted)',
+      'line-height:1.6',
+      'margin-bottom:1.5rem'
+    ].join(';');
+    contentWrapper.appendChild(messageEl);
+
+    // Action button placeholder
+    const actionBtn = document.createElement('button');
+    actionBtn.textContent = 'Close';
+    actionBtn.style.cssText = [
+      'padding:0.75rem 2rem',
+      'border-radius:8px',
+      'border:none',
+      'background:var(--color-accent)',
+      'color:white',
+      'font-weight:600',
+      'font-size:0.95rem',
+      'cursor:pointer',
+      'transition:all 0.2s ease'
+    ].join(';');
+    actionBtn.addEventListener('mouseenter', function () {
+      this.style.transform = 'translateY(-2px)';
+      this.style.boxShadow = '0 4px 12px rgba(56,189,248,0.3)';
+    });
+    actionBtn.addEventListener('mouseleave', function () {
+      this.style.transform = '';
+      this.style.boxShadow = '';
+    });
+    contentWrapper.appendChild(actionBtn);
+
+    // Show modal function
+    window.showModal = function (options) {
+      options = options || {};
+      const type = options.type || 'success';
+      const title = options.title || '';
+      const message = options.message || '';
+      const icon = options.icon || (type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️');
+      const buttonText = options.buttonText || 'Close';
+      const autoClose = options.autoClose !== undefined ? options.autoClose : false;
+      const duration = options.duration || 3000;
+
+      iconEl.textContent = icon;
+      titleEl.textContent = title;
+      messageEl.textContent = message;
+      actionBtn.textContent = buttonText;
+
+      modalContainer.style.display = 'flex';
+      
+      // Trigger animation
+      requestAnimationFrame(function () {
+        backdrop.style.opacity = '1';
+        contentWrapper.style.transform = 'scale(1) translateY(0)';
+        contentWrapper.style.opacity = '1';
+      });
+
+      // Auto close
+      if (autoClose) {
+        setTimeout(window.closeModal, duration);
+      }
+    };
+
+    // Close modal function
+    window.closeModal = function () {
+      backdrop.style.opacity = '0';
+      contentWrapper.style.transform = 'scale(0.9) translateY(20px)';
+      contentWrapper.style.opacity = '0';
+      
+      setTimeout(function () {
+        modalContainer.style.display = 'none';
+      }, 300);
+    };
+
+    // Close on button click
+    closeBtn.addEventListener('click', window.closeModal);
+    actionBtn.addEventListener('click', window.closeModal);
+
+    // Close on backdrop click
+    backdrop.addEventListener('click', window.closeModal);
+
+    // Close on ESC key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modalContainer.style.display === 'flex') {
+        window.closeModal();
+      }
+    });
+  })();
+
+
+  // ──────────────────────────────────────────────
+  // 12. TOAST NOTIFICATION SYSTEM
+  // ──────────────────────────────────────────────
+  (function initToastSystem() {
+    let toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
+      toastContainer = document.createElement('div');
+      toastContainer.id = 'toastContainer';
+      toastContainer.style.cssText = [
+        'position:fixed',
+        'top:1rem',
+        'right:1rem',
+        'z-index:10000',
+        'display:flex',
+        'flex-direction:column',
+        'gap:0.75rem',
+        'pointer-events:none'
+      ].join(';');
+      document.body.appendChild(toastContainer);
+    }
+
+    window.showToast = function (options) {
+      options = options || {};
+      const type = options.type || 'info';
+      const message = options.message || '';
+      const duration = options.duration || 3000;
+
+      const toast = document.createElement('div');
+      const bgColor = type === 'success' ? 'rgba(34,197,94,0.95)' : 
+                      type === 'error' ? 'rgba(239,68,68,0.95)' : 
+                      'rgba(56,189,248,0.95)';
+      
+      toast.style.cssText = [
+        'pointer-events:auto',
+        'background:' + bgColor,
+        'color:white',
+        'padding:1rem 1.25rem',
+        'border-radius:10px',
+        'font-size:0.9rem',
+        'font-weight:500',
+        'box-shadow:0 4px 20px rgba(0,0,0,0.15)',
+        'transform:translateX(120%)',
+        'transition:transform 0.3s ease',
+        'max-width:320px',
+        'display:flex',
+        'align-items:center',
+        'gap:0.75rem'
+      ].join(';');
+
+      const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+      toast.innerHTML = '<span style="font-size:1.1rem;">' + icon + '</span><span>' + message + '</span>';
+
+      toastContainer.appendChild(toast);
+
+      // Animate in
+      requestAnimationFrame(function () {
+        toast.style.transform = 'translateX(0)';
+      });
+
+      // Remove after duration
+      setTimeout(function () {
+        toast.style.transform = 'translateX(120%)';
+        setTimeout(function () {
+          toast.remove();
+        }, 300);
+      }, duration);
+    };
+  })();
+
+
+  // ──────────────────────────────────────────────
+  // 13. COURSE ENROLLMENT BUTTONS
+  // ──────────────────────────────────────────────
+  (function initCourseEnrollment() {
+    const enrollButtons = document.querySelectorAll('.glass-card .btn-primary');
+    
+    enrollButtons.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Show loading state
+        const originalText = btn.textContent;
+        btn.textContent = 'Enrolling...';
+        btn.style.opacity = '0.7';
+        btn.style.pointerEvents = 'none';
+
+        // Simulate API call
+        setTimeout(function () {
+          btn.textContent = originalText;
+          btn.style.opacity = '';
+          btn.style.pointerEvents = '';
+
+          // Show success modal
+          window.showModal({
+            type: 'success',
+            title: 'Enrolled Successfully!',
+            message: 'You have been enrolled in this course. Check your email for course access details.',
+            icon: '🎉',
+            buttonText: 'Awesome!',
+            autoClose: false
+          });
+
+          // Also show toast
+          window.showToast({
+            type: 'success',
+            message: 'Enrolled successfully!',
+            duration: 2500
+          });
+        }, 1200);
+      });
+    });
+  })();
+
+
+  // ──────────────────────────────────────────────
+  // 14. CATEGORY FILTER FUNCTIONALITY
+  // ──────────────────────────────────────────────
+  (function initCategoryFilter() {
+    const categoryCards = document.querySelectorAll('.category-card');
+    
+    categoryCards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        const categoryName = this.querySelector('h3').textContent;
+        
+        // Show toast with filter info
+        window.showToast({
+          type: 'info',
+          message: 'Filtering by: ' + categoryName,
+          duration: 2000
+        });
+
+        // Scroll to courses section
+        const coursesSection = document.getElementById('courses');
+        if (coursesSection) {
+          const offsetTop = coursesSection.offsetTop - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+
+      // Add cursor pointer and hover effect
+      card.style.cursor = 'pointer';
+      card.addEventListener('mouseenter', function () {
+        this.style.transform = 'translateY(-4px)';
+      });
+      card.addEventListener('mouseleave', function () {
+        this.style.transform = '';
+      });
+    });
+  })();
+
+
+  // ──────────────────────────────────────────────
+  // 15. BUTTON LOADING STATES (for CTA buttons)
+  // ──────────────────────────────────────────────
+  (function initButtonLoading() {
+    const ctaButtons = document.querySelectorAll('.cta-section .btn-primary, .cta-section .btn-secondary');
+    
+    ctaButtons.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        // If it's a hash link, let smooth scroll handle it
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) return;
+
+        e.preventDefault();
+        
+        const originalText = btn.textContent.trim();
+        btn.textContent = 'Loading...';
+        btn.style.opacity = '0.7';
+        btn.style.pointerEvents = 'none';
+
+        setTimeout(function () {
+          btn.textContent = originalText;
+          btn.style.opacity = '';
+          btn.style.pointerEvents = '';
+
+          window.showModal({
+            type: 'success',
+            title: 'Welcome to NeuralPath!',
+            message: 'Thank you for your interest. Our team will reach out to you shortly.',
+            icon: '🚀',
+            buttonText: 'Got it',
+            autoClose: false
+          });
+        }, 1500);
+      });
+    });
+  })();
+
+
+  // ──────────────────────────────────────────────
+  // 16. LOGIN BUTTON FUNCTIONALITY
+  // ──────────────────────────────────────────────
+  (function initLoginButton() {
+    const loginBtn = document.querySelector('.btn-login');
+    if (loginBtn) {
+      loginBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        window.showModal({
+          type: 'info',
+          title: 'Login Coming Soon',
+          message: 'User authentication is under development. Please contact support for account access.',
+          icon: '🔐',
+          buttonText: 'Close',
+          autoClose: false
+        });
+      });
+    }
+  })();
+
 })();
