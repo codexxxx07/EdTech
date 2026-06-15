@@ -795,8 +795,20 @@
   // 16. LOGIN BUTTON FUNCTIONALITY
   // ──────────────────────────────────────────────
   (function initLoginButton() {
-    // Reusable function to show login modal
+    // Function to show login modal
     function showLoginModal() {
+      window.showModal({
+        type: 'info',
+        title: 'Login Coming Soon',
+        message: 'User authentication is under development. Please contact support for account access.',
+        icon: '🔐',
+        buttonText: 'Close',
+        autoClose: false
+      });
+    }
+
+    // Function to show talk to mentor modal
+    function showTalkToMentorModal() {
       window.showModal({
         type: 'info',
         title: 'Talk to Mentor Coming Soon',
@@ -816,12 +828,23 @@
       });
     }
 
-    // Talk to Mentor button (triggers same login modal)
+    // Mobile menu login link
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+    mobileMenuLinks.forEach(function(link) {
+      if (link.textContent.trim().startsWith('Login')) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          showLoginModal();
+        });
+      }
+    });
+
+    // Talk to Mentor button
     const talkToMentorBtn = document.getElementById('talkToMentorBtn');
     if (talkToMentorBtn) {
       talkToMentorBtn.addEventListener('click', function (e) {
         e.preventDefault();
-        showLoginModal();
+        showTalkToMentorModal();
       });
     }
   })();
