@@ -6,6 +6,31 @@
 (function () {
   'use strict';
 
+  // ── Skeleton screen — fade out once page is fully loaded ──
+  (function initSkeleton() {
+    var skeleton = document.getElementById('skeleton-overlay');
+    if (!skeleton) return;
+    var minDisplay = 2500;
+    var startTime = Date.now();
+    function hideSkeleton() {
+      var elapsed = Date.now() - startTime;
+      var remaining = Math.max(0, minDisplay - elapsed);
+      setTimeout(function () {
+        skeleton.style.transition = 'opacity 0.6s ease';
+        skeleton.style.opacity = '0';
+        skeleton.style.pointerEvents = 'none';
+        setTimeout(function () {
+          skeleton.style.display = 'none';
+        }, 450);
+      }, remaining);
+    }
+    if (document.readyState === 'complete') {
+      hideSkeleton();
+    } else {
+      window.addEventListener('load', hideSkeleton);
+    }
+  })();
+
   // ──────────────────────────────────────────────
   // 0. THEME — Light / Dark toggle
   // ──────────────────────────────────────────────
