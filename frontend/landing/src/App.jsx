@@ -87,7 +87,7 @@ export default function App() {
 
         <div className="hidden md:flex items-center gap-8">
           {["Features", "Portals", "About", "Contact"].map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium no-underline transition-colors" style={{ color: "var(--color-text-muted)" }}>
+            <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium no-underline transition-all duration-300 border-b-2 border-transparent hover:border-[var(--color-accent)] pb-0.5" style={{ color: "var(--color-text-muted)" }}>
               {item}
             </a>
           ))}
@@ -113,7 +113,7 @@ export default function App() {
         <div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 md:hidden" style={{ background: dark ? "rgba(26,27,75,0.98)" : "rgba(248,250,252,0.98)", backdropFilter: "blur(20px)" }}>
           {["Features", "Portals", "About", "Contact"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}
-              className="text-lg font-semibold no-underline" style={{ color: "var(--color-text-primary)" }}>
+              className="text-lg font-semibold no-underline transition-all duration-300 border-b-2 border-transparent hover:border-[var(--color-accent)] pb-0.5" style={{ color: "var(--color-text-primary)" }}>
               {item}
             </a>
           ))}
