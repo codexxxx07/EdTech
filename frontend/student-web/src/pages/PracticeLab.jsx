@@ -190,7 +190,7 @@ export default function PracticeLab() {
             <span className="w-3 h-3 rounded-full bg-yellow-500" />
             <span className="w-3 h-3 rounded-full bg-green-500" />
             <span className="text-xs font-mono ml-2 text-gray-400">terminal — Linux Container</span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded ml-auto" style={{ background: 'rgba(0,217,255,0.15)', color: '#00D9FF' }}>ACTIVE</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded ml-auto" style={{ background: 'rgba(91,157,240,0.15)', color: '#5b9df0' }}>ACTIVE</span>
           </div>
           <div className="h-80 overflow-y-auto p-4 font-mono text-sm leading-relaxed" style={{ background: '#0d0d1a', color: '#e0e0e0' }}>
             {terminal.map((entry, i) => (

@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 const stats = [
-  { label: 'Courses Enrolled', value: '6', icon: 'book', color: '#1D7874' },
-  { label: 'Classes Attended', value: '24', icon: 'play', color: '#F4D35E' },
-  { label: 'Assignments Done', value: '18', icon: 'check', color: '#EE964B' },
-  { label: 'Overall Progress', value: '72%', icon: 'trending', color: '#1D7874' },
+  { label: 'Courses Enrolled', value: '6', icon: 'book' },
+  { label: 'Classes Attended', value: '24', icon: 'play' },
+  { label: 'Assignments Done', value: '18', icon: 'check' },
+  { label: 'Overall Progress', value: '72%', icon: 'trending' },
 ]
 
 const quickActions = [
@@ -15,10 +15,10 @@ const quickActions = [
 ]
 
 const courses = [
-  { name: 'VLSI Design', progress: 75, color: '#1D7874' },
-  { name: 'Data Structures', progress: 60, color: '#F4D35E' },
-  { name: 'Embedded Systems', progress: 40, color: '#EE964B' },
-  { name: 'Digital Electronics', progress: 90, color: '#1D7874' },
+  { name: 'VLSI Design', progress: 75 },
+  { name: 'Data Structures', progress: 60 },
+  { name: 'Embedded Systems', progress: 40 },
+  { name: 'Digital Electronics', progress: 90 },
 ]
 
 const schedule = [
@@ -55,8 +55,8 @@ export default function Dashboard() {
         {stats.map((stat, i) => (
           <div key={i} className="glass-card p-5">
             <div className="flex items-center justify-between mb-3">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `${stat.color}15` }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={stat.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--color-accent-light)' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   {stat.icon === 'book' && <><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></>}
                   {stat.icon === 'play' && <><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></>}
                   {stat.icon === 'check' && <><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>}
@@ -95,10 +95,10 @@ export default function Dashboard() {
               <div key={i}>
                 <div className="flex justify-between text-sm mb-1.5">
                   <span style={{ color: 'var(--color-text-primary)' }}>{course.name}</span>
-                  <span className="font-medium" style={{ color: course.color }}>{course.progress}%</span>
+                  <span className="font-medium" style={{ color: 'var(--color-accent)' }}>{course.progress}%</span>
                 </div>
                 <div className="h-2 rounded-full" style={{ background: 'var(--color-accent-light)' }}>
-                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${course.progress}%`, background: course.color }} />
+                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${course.progress}%`, background: 'var(--color-accent)' }} />
                 </div>
               </div>
             ))}
@@ -117,7 +117,7 @@ export default function Dashboard() {
                   <p className="font-semibold text-sm" style={{ color: 'var(--color-text-primary)' }}>{item.title}</p>
                   <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>{item.instructor}</p>
                 </div>
-                <span className="text-xs font-bold px-2.5 py-1 rounded-lg" style={{ background: item.type === 'Live' ? 'rgba(29,120,116,0.2)' : 'rgba(244,211,94,0.2)', color: item.type === 'Live' ? '#1D7874' : '#B8860B' }}>
+                <span className="text-xs font-bold px-2.5 py-1 rounded-lg" style={{ background: 'var(--color-accent-light)', color: 'var(--color-accent)' }}>
                   {item.type}
                 </span>
               </div>

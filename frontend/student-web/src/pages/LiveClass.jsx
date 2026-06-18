@@ -73,7 +73,7 @@ export default function LiveClass() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-medium px-2 py-1 rounded-lg" style={{ background: 'rgba(34,197,94,0.2)', color: '#22C55E' }}>Live</span>
-                <span className="text-[10px] font-medium px-2 py-1 rounded-lg" style={{ background: 'rgba(0,217,255,0.15)', color: '#00D9FF' }}>HD</span>
+                <span className="text-[10px] font-medium px-2 py-1 rounded-lg" style={{ background: 'rgba(91,157,240,0.15)', color: '#5b9df0' }}>HD</span>
               </div>
             </div>
           </div>
