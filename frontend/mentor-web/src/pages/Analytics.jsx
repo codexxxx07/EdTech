@@ -43,7 +43,7 @@ export default function Analytics() {
                 </svg>
               </div>
             </div>
-            <span className="text-xs font-medium mt-3 block" style={{ color: dark ? '#00D9FF' : '#1D7874' }}>{stat.change} vs last month</span>
+            <span className="text-xs font-medium mt-3 block" style={{ color: dark ? '#5b9df0' : '#1D7874' }}>{stat.change} vs last month</span>
           </div>
         ))}
       </div>

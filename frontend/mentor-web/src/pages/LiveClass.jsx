@@ -50,7 +50,7 @@ export default function LiveClass() {
           className="relative rounded-2xl overflow-hidden aspect-video flex items-center justify-center"
           style={{
             background: dark
-              ? 'linear-gradient(135deg, #1A1B4B, #23245A)'
+              ? 'linear-gradient(135deg, #0b0b18, #111128)'
               : 'linear-gradient(135deg, #1D7874, #0D5E5A)',
           }}
         >
@@ -159,7 +159,7 @@ export default function LiveClass() {
               {queue.map((item, i) => (
                 <div key={i} className="flex items-center justify-between p-3 rounded-xl" style={{ background: 'var(--color-bg-primary)' }}>
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0" style={{ background: dark ? '#C9B6E4' : '#F4D35E', color: dark ? '#1A1B4B' : '#262626' }}>
+                    <span className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0" style={{ background: dark ? '#a78bfa' : '#F4D35E', color: dark ? '#0b0b18' : '#262626' }}>
                       {item.name.split(' ').map(n => n[0]).join('')}
                     </span>
                     <div className="min-w-0">

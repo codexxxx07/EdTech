@@ -1,5 +1,3 @@
-import { useTheme } from '../ThemeContext'
-
 const stats = [
   { label: 'Total Students', value: '2,847', change: '+12%', icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z' },
   { label: 'Active Courses', value: '14', change: '+3', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' },
@@ -8,10 +6,10 @@ const stats = [
 ]
 
 const quickActions = [
-  { label: 'Start Live Class', icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z', color: '#EE964B' },
-  { label: 'Grade Submissions', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', color: '#1D7874' },
-  { label: 'View Analytics', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', color: '#F4D35E' },
-  { label: 'Create Course', icon: 'M12 4v16m8-8H4', color: '#1D7874' },
+  { label: 'Start Live Class', icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z' },
+  { label: 'Grade Submissions', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
+  { label: 'View Analytics', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
+  { label: 'Create Course', icon: 'M12 4v16m8-8H4' },
 ]
 
 const activities = [
@@ -34,20 +32,17 @@ const earnings = [420, 580, 350, 720, 490, 610, 380]
 const maxEarning = Math.max(...earnings)
 
 export default function Dashboard() {
-  const { dark } = useTheme()
 
   return (
     <div className="space-y-6">
       <div
         className="relative rounded-2xl p-6 lg:p-8 overflow-hidden"
         style={{
-          background: dark
-            ? 'linear-gradient(135deg, #1A1B4B 0%, #23245A 50%, #1A1B4B 100%)'
-            : 'linear-gradient(135deg, #1D7874 0%, #0D5E5A 50%, #1D7874 100%)',
+          background: 'linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-bg-card) 50%, var(--color-bg-secondary) 100%)',
         }}
       >
-        <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-10" style={{ background: dark ? '#00D9FF' : '#F4D35E', transform: 'translate(30%, -30%)' }} />
-        <div className="absolute bottom-0 left-1/3 w-48 h-48 rounded-full opacity-10" style={{ background: dark ? '#C9B6E4' : '#EE964B', transform: 'translate(-20%, 40%)' }} />
+        <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-10" style={{ background: 'var(--color-accent)', transform: 'translate(30%, -30%)' }} />
+        <div className="absolute bottom-0 left-1/3 w-48 h-48 rounded-full opacity-10" style={{ background: 'var(--color-accent)', transform: 'translate(-20%, 40%)' }} />
         <div className="relative z-10">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
@@ -58,7 +53,7 @@ export default function Dashboard() {
               <button className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200" style={{ background: 'rgba(255,255,255,0.2)', color: 'white' }}>
                 View Report
               </button>
-              <button className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200" style={{ background: dark ? '#00D9FF' : '#F4D35E', color: dark ? '#1A1B4B' : '#262626' }}>
+              <button className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200" style={{ background: 'var(--color-accent)', color: 'var(--color-bg-primary)' }}>
                 Quick Start
               </button>
             </div>
@@ -81,7 +76,7 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="flex items-center gap-1 mt-3">
-              <span className="text-xs font-medium" style={{ color: dark ? '#00D9FF' : '#1D7874' }}>{stat.change}</span>
+              <span className="text-xs font-medium" style={{ color: 'var(--color-accent)' }}>{stat.change}</span>
               <span className="text-xs" style={{ color: 'var(--color-text-muted)' }}>vs last week</span>
             </div>
           </div>
@@ -96,9 +91,9 @@ export default function Dashboard() {
           >
             <div
               className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-200"
-              style={{ background: `${action.color}15` }}
+              style={{ background: 'var(--color-accent-light)' }}
             >
-              <svg className="w-6 h-6" style={{ color: action.color }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <svg className="w-6 h-6" style={{ color: 'var(--color-accent)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d={action.icon} />
               </svg>
             </div>
@@ -121,7 +116,7 @@ export default function Dashboard() {
                     {a.avatar}
                   </div>
                   {a.online && (
-                    <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2" style={{ background: dark ? '#00D9FF' : '#1D7874', borderColor: 'var(--color-bg-card)' }} />
+                    <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2" style={{ background: 'var(--color-accent)', borderColor: 'var(--color-bg-card)' }} />
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
