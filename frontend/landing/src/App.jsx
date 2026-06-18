@@ -75,7 +75,7 @@ export default function App() {
       <nav
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-8 py-4"
         style={{
-          background: dark ? "rgba(26,27,75,0.9)" : "rgba(248,250,252,0.9)",
+          background: dark ? "rgba(11,11,24,0.9)" : "rgba(248,250,252,0.9)",
           backdropFilter: "blur(18px)",
           borderBottom: "1px solid var(--color-border)",
         }}
@@ -110,7 +110,7 @@ export default function App() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 md:hidden" style={{ background: dark ? "rgba(26,27,75,0.98)" : "rgba(248,250,252,0.98)", backdropFilter: "blur(20px)" }}>
+        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 md:hidden" style={{ background: dark ? "rgba(11,11,24,0.98)" : "rgba(248,250,252,0.98)", backdropFilter: "blur(20px)" }}>
           {["Features", "Portals", "About", "Contact"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}
               className="text-lg font-semibold no-underline transition-all duration-300 border-b-2 border-transparent hover:border-[var(--color-accent)] pb-0.5" style={{ color: "var(--color-text-primary)" }}>
