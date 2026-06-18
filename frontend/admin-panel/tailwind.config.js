@@ -10,9 +10,9 @@ export default {
           yellow: "#F4D35E",
           orange: "#EE964B",
           dark: "#262626",
-          navy: "#1A1B4B",
-          cyan: "#00D9FF",
-          lavender: "#C9B6E4",
+          navy: "#0b0b18",
+          cyan: "#5b9df0",
+          lavender: "#8b90a0",
         },
       },
       fontFamily: {

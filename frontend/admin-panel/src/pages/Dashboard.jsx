@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
 const stats = [
-  { label: 'Total Users', value: '24,891', change: '+12%', color: '#1D7874' },
-  { label: 'Active Students', value: '18,432', change: '+8%', color: '#F4D35E' },
-  { label: 'Active Mentors', value: '1,247', change: '+15%', color: '#EE964B' },
-  { label: 'Total Revenue (₹)', value: '₹1,28,49,200', change: '+22%', color: '#1D7874' },
-  { label: 'Total Courses', value: '486', change: '+5%', color: '#F4D35E' },
-  { label: 'Completion Rate', value: '76%', change: '+3%', color: '#EE964B' },
+  { label: 'Total Users', value: '24,891', change: '+12%' },
+  { label: 'Active Students', value: '18,432', change: '+8%' },
+  { label: 'Active Mentors', value: '1,247', change: '+15%' },
+  { label: 'Total Revenue (₹)', value: '₹1,28,49,200', change: '+22%' },
+  { label: 'Total Courses', value: '486', change: '+5%' },
+  { label: 'Completion Rate', value: '76%', change: '+3%' },
 ]
 
 const chartBars = [40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 88]
@@ -41,11 +41,10 @@ export default function Dashboard() {
   const [showAllActivity, setShowAllActivity] = useState(false)
 
   const roleBadge = (role) => {
-    const colors = { Student: '#1D7874', Mentor: '#EE964B', Admin: '#F4D35E' }
     return (
       <span
         className="text-xs font-semibold px-2.5 py-0.5 rounded-full"
-        style={{ background: `${colors[role]}20`, color: colors[role] }}
+        style={{ background: 'var(--color-accent-light)', color: 'var(--color-accent)' }}
       >
         {role}
       </span>
@@ -91,7 +90,7 @@ export default function Dashboard() {
             <div className="flex items-center gap-1.5 mt-2">
               <span
                 className="text-xs font-semibold px-2 py-0.5 rounded-full"
-                style={{ background: `${stat.color}20`, color: stat.color }}
+                style={{ background: 'var(--color-accent-light)', color: 'var(--color-accent)' }}
               >
                 {stat.change}
               </span>
